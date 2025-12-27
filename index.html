@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🧪 منصة الكيمياء - الخواص الدورية | أ/ محمد السيد</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { 
+            font-family: 'Cairo', sans-serif; 
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            overflow-x: hidden;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+        }
+        
+        .card-glow {
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        @media (min-width: 768px) {
+            .card-glow:hover {
+                box-shadow: 0 0 50px rgba(99, 102, 241, 0.4);
+                transform: translateY(-3px);
+            }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pulse-glow {
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(251, 191, 36, 0.8); }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .bounce-in {
+            animation: bounceIn 0.6s ease-out;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .element-box {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            font-size: 14px;
+        }
+        
+        @media (min-width: 640px) {
+            .element-box {
+                width: 60px;
+                height: 60px;
+                font-size: 16px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .element-box {
+                width: 64px;
+                height: 64px;
+            }
+            .element-box:hover {
+                transform: scale(1.1) rotate(3deg);
+                z-index: 10;
+            }
+        }
+        
+        .quiz-option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+        }
+        
+        @media (min-width: 768px) {
+            .quiz-option:hover {
+                transform: translateX(-8px);
+                background: rgba(99, 102, 241, 0.2);
+                border-color: #6366f1;
+            }
+        }
+        
+        .teacher-avatar {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+        }
+        
+        @media (min-width: 640px) {
+            .teacher-avatar {
+                width: 56px;
+                height: 56px;
+                font-size: 24px;
+            }
+        }
+        
+        .speech-bubble {
+            position: relative;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 16px;
+        }
+        
+        @media (min-width: 768px) {
+            .speech-bubble {
+                border-radius: 20px;
+            }
+            .speech-bubble::after {
+                content: '';
+                position: absolute;
+                left: -12px;
+                top: 20px;
+                border: 12px solid transparent;
+                border-right-color: #6366f1;
+            }
+        }
+        
+        .diagram-container {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px;
+            padding: 1rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        @media (min-width: 768px) {
+            .diagram-container {
+                padding: 1.5rem;
+                border-radius: 20px;
+            }
+        }
+        
+        /* Atom Animation - الإلكترون بيلف حوالين النواة */
+        .atom-wrapper {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 768px) {
+            .atom-wrapper {
+                width: 130px;
+                height: 130px;
+            }
+        }
+        
+        .nucleus {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            font-size: 11px;
+        }
+        
+        @media (min-width: 768px) {
+            .nucleus {
+                width: 46px;
+                height: 46px;
+                font-size: 14px;
+            }
+        }
+        
+        .orbit {
+            position: absolute;
+            border: 2px dashed rgba(255,255,255,0.25);
+            border-radius: 50%;
+        }
+        
+        .orbit-1 { width: 60px; height: 60px; }
+        .orbit-2 { width: 80px; height: 80px; }
+        .orbit-3 { width: 100px; height: 100px; }
+        
+        @media (min-width: 768px) {
+            .orbit-1 { width: 75px; height: 75px; }
+            .orbit-2 { width: 100px; height: 100px; }
+            .orbit-3 { width: 125px; height: 125px; }
+        }
+        
+        .electron {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 50%;
+            box-shadow: 0 0 8px #fbbf24, 0 0 15px #fbbf24;
+            font-size: 7px;
+            font-weight: bold;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @media (min-width: 768px) {
+            .electron {
+                width: 18px;
+                height: 18px;
+                font-size: 9px;
+            }
+        }
+        
+        /* الإلكترون بيدور على المدار */
+        @keyframes electronOrbit1 {
+            from { transform: rotate(0deg) translateX(30px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(30px) rotate(-360deg); }
+        }
+        
+        @keyframes electronOrbit2 {
+            from { transform: rotate(0deg) translateX(40px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(40px) rotate(-360deg); }
+        }
+        
+        @keyframes electronOrbit3 {
+            from { transform: rotate(0deg) translateX(50px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
+        }
+        
+        @media (min-width: 768px) {
+            @keyframes electronOrbit1 {
+                from { transform: rotate(0deg) translateX(37px) rotate(0deg); }
+                to { transform: rotate(360deg) translateX(37px) rotate(-360deg); }
+            }
+            
+            @keyframes electronOrbit2 {
+                from { transform: rotate(0deg) translateX(50px) rotate(0deg); }
+                to { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
+            }
+            
+            @keyframes electronOrbit3 {
+                from { transform: rotate(0deg) translateX(62px) rotate(0deg); }
+                to { transform: rotate(360deg) translateX(62px) rotate(-360deg); }
+            }
+        }
+        
+        .e-orbit-1 { animation: electronOrbit1 2s linear infinite; }
+        .e-orbit-2 { animation: electronOrbit2 2.5s linear infinite; }
+        .e-orbit-3 { animation: electronOrbit3 3s linear infinite; }
+        
+        @keyframes electronLeave {
+            0%, 100% { transform: translateX(0); opacity: 1; }
+            50% { transform: translateX(40px); opacity: 0.5; }
+        }
+        
+        @keyframes electronEnter {
+            0%, 100% { transform: translateX(0); opacity: 1; }
+            50% { transform: translateX(-40px); opacity: 0.5; }
+        }
+        
+        .electron-leaving { animation: electronLeave 2s ease-in-out infinite; }
+        .electron-entering { animation: electronEnter 2s ease-in-out infinite; }
+        
+        .nav-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .nav-btn:hover::before {
+            width: 80%;
+        }
+        
+        .progress-fill {
+            transition: width 0.3s ease;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b, #ef4444);
+        }
+        
+        .shake {
+            animation: shake 0.5s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        
+        .correct-glow {
+            animation: correctGlow 0.5s ease;
+        }
+        
+        @keyframes correctGlow {
+            0%, 100% { box-shadow: 0 0 0 rgba(16, 185, 129, 0); }
+            50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.8); }
+        }
+
+        .section-divider {
+            height: 50px;
+            background: linear-gradient(180deg, transparent 0%, rgba(99, 102, 241, 0.1) 50%, transparent 100%);
+        }
+        
+        @media (min-width: 768px) {
+            .section-divider {
+                height: 80px;
+            }
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .chemical-eq {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.6rem 0.8rem;
+            border-radius: 8px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            font-size: 13px;
+            display: inline-block;
+            direction: ltr;
+        }
+        
+        @media (min-width: 768px) {
+            .chemical-eq {
+                padding: 0.8rem 1.5rem;
+                font-size: 16px;
+                border-radius: 10px;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            z-index: 100;
+            padding: 8px 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        @media (min-width: 1024px) {
+            .mobile-nav {
+                display: none;
+            }
+        }
+        
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            padding: 6px 10px;
+            border-radius: 12px;
+            transition: all 0.3s;
+            font-size: 10px;
+            color: #9ca3af;
+        }
+        
+        .mobile-nav-item.active,
+        .mobile-nav-item:active {
+            background: rgba(99, 102, 241, 0.3);
+            color: #fbbf24;
+        }
+        
+        .mobile-nav-item span:first-child {
+            font-size: 20px;
+        }
+        
+        /* Ensure content doesn't hide behind mobile nav */
+        body {
+            padding-bottom: 70px;
+        }
+        
+        @media (min-width: 1024px) {
+            body {
+                padding-bottom: 0;
+            }
+        }
+        
+        /* Table Responsive */
+        .table-scroll {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 -1rem;
+            padding: 0 1rem;
+        }
+        
+        .table-scroll table {
+            min-width: 100%;
+        }
+        
+        /* Comparison Cards for Mobile */
+        .comparison-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Progress Ring */
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.35s;
+            transform-origin: 50% 50%;
+        }
+        
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+        
+        /* Important Note */
+        .important-note {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+            border-right: 4px solid #ef4444;
+            padding: 1rem;
+            border-radius: 0 12px 12px 0;
+        }
+        
+        /* Concept Card */
+        .concept-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.25rem;
+            transition: all 0.3s;
+        }
+        
+        .concept-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.5);
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.7);
+        }
+        
+        /* Fix for iOS */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                padding-bottom: 85px;
+            }
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white">
+    <!-- Desktop Navbar -->
+    <nav class="fixed top-0 left-0 right-0 bg-black/60 backdrop-blur-xl z-50 py-3 border-b border-white/10">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <span class="text-2xl sm:text-3xl floating">⚗️</span>
+                    <div>
+                        <h1 class="text-base sm:text-lg font-bold text-yellow-400">منصة الكيمياء</h1>
+                        <p class="text-[10px] sm:text-xs text-gray-400">مع أ/ محمد السيد 👨‍🏫</p>
+                    </div>
+                </div>
+                <div class="hidden lg:flex items-center gap-4">
+                    <button onclick="scrollToSection('intro')" class="nav-btn py-2 px-3 text-sm hover:text-yellow-400 transition">🏠 البداية</button>
+                    <button onclick="scrollToSection('metallic')" class="nav-btn py-2 px-3 text-sm hover:text-yellow-400 transition">⚡ الفلزية</button>
+                    <button onclick="scrollToSection('nonmetallic')" class="nav-btn py-2 px-3 text-sm hover:text-yellow-400 transition">💎 اللافلزية</button>
+                    <button onclick="scrollToSection('acidic')" class="nav-btn py-2 px-3 text-sm hover:text-yellow-400 transition">🍋 الحامضية</button>
+                    <button onclick="scrollToSection('basic')" class="nav-btn py-2 px-3 text-sm hover:text-yellow-400 transition">🧼 القاعدية</button>
+                    <button onclick="scrollToSection('final-exam')" class="bg-gradient-to-r from-yellow-500 to-orange-500 text-black py-2 px-4 rounded-full text-sm font-bold hover:scale-105 transition">📝 الامتحان</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Reading Progress -->
+    <div class="fixed top-[52px] sm:top-14 left-0 right-0 h-1 bg-gray-800/50 z-40">
+        <div id="progress-bar" class="h-full progress-fill" style="width: 0%"></div>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-nav">
+        <button onclick="scrollToSection('intro')" class="mobile-nav-item" id="nav-intro">
+            <span>🏠</span>
+            <span>البداية</span>
+        </button>
+        <button onclick="scrollToSection('metallic')" class="mobile-nav-item" id="nav-metallic">
+            <span>⚡</span>
+            <span>الفلزية</span>
+        </button>
+        <button onclick="scrollToSection('nonmetallic')" class="mobile-nav-item" id="nav-nonmetallic">
+            <span>💎</span>
+            <span>اللافلزية</span>
+        </button>
+        <button onclick="scrollToSection('acidic')" class="mobile-nav-item" id="nav-acidic">
+            <span>🍋</span>
+            <span>الحامضية</span>
+        </button>
+        <button onclick="scrollToSection('basic')" class="mobile-nav-item" id="nav-basic">
+            <span>🧼</span>
+            <span>القاعدية</span>
+        </button>
+        <button onclick="scrollToSection('final-exam')" class="mobile-nav-item" id="nav-final-exam">
+            <span>📝</span>
+            <span>الامتحان</span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="intro" class="min-h-screen flex items-center justify-center pt-16 pb-8 px-4">
+        <div class="text-center max-w-4xl w-full">
+            <div class="mb-6 sm:mb-8">
+                <div class="text-6xl sm:text-8xl mb-4 sm:mb-6 floating">🧪</div>
+                <h1 class="text-3xl sm:text-4xl md:text-6xl font-black mb-3 sm:mb-4 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent leading-tight px-2">
+                    الخواص الدورية للعناصر
+                </h1>
+                <p class="text-lg sm:text-xl text-gray-300 mb-2">الفلزية • اللافلزية • الحامضية • القاعدية</p>
+                <p class="text-sm text-gray-400">الصف الثاني الثانوي - الترم الأول</p>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 justify-center mb-6 sm:mb-8 max-w-2xl mx-auto px-2">
+                <div class="teacher-avatar rounded-full flex items-center justify-center flex-shrink-0">
+                    👨‍🏫
+                </div>
+                <div class="speech-bubble p-4 text-right flex-1 text-sm sm:text-base">
+                    <p class="leading-relaxed">
+                        أهلاً يا بطل! 👋 أنا أستاذ محمد السيد وهنشرح النهاردة درس مهم جداً!
+                        هنفهم ليه الصوديوم بيولع في الميه 💥 وليه الكلور غاز سام! 
+                        <span class="text-yellow-300 font-bold">جاهز؟ يلا بينا! 🚀</span>
+                    </p>
+                </div>
+            </div>
+            
+            <button onclick="scrollToSection('metallic')" class="pulse-glow bg-gradient-to-r from-yellow-500 to-orange-500 text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full text-lg sm:text-xl font-bold hover:scale-105 transition">
+                يلا نبدأ! 📚
+            </button>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-8 sm:mt-12">
+                <div class="info-card rounded-xl p-3 sm:p-4">
+                    <div class="text-2xl sm:text-3xl mb-2">📖</div>
+                    <div class="text-xl sm:text-2xl font-bold text-yellow-400">4</div>
+                    <div class="text-xs sm:text-sm text-gray-400">أجزاء شرح</div>
+                </div>
+                <div class="info-card rounded-xl p-3 sm:p-4">
+                    <div class="text-2xl sm:text-3xl mb-2">❓</div>
+                    <div class="text-xl sm:text-2xl font-bold text-green-400">80+</div>
+                    <div class="text-xs sm:text-sm text-gray-400">سؤال متنوع</div>
+                </div>
+                <div class="info-card rounded-xl p-3 sm:p-4">
+                    <div class="text-2xl sm:text-3xl mb-2">🎨</div>
+                    <div class="text-xl sm:text-2xl font-bold text-pink-400">15+</div>
+                    <div class="text-xs sm:text-sm text-gray-400">رسم توضيحي</div>
+                </div>
+                <div class="info-card rounded-xl p-3 sm:p-4">
+                    <div class="text-2xl sm:text-3xl mb-2">⏱️</div>
+                    <div class="text-xl sm:text-2xl font-bold text-blue-400">60</div>
+                    <div class="text-xs sm:text-sm text-gray-400">دقيقة</div>
+                </div>
+            </div>
+            
+            <!-- Quick Overview -->
+            <div class="mt-8 sm:mt-12 text-right">
+                <h3 class="text-xl font-bold mb-4 text-center">📋 نظرة سريعة على الدرس</h3>
+                <div class="grid sm:grid-cols-2 gap-3">
+                    <div class="concept-card">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-2xl">⚡</span>
+                            <span class="font-bold text-pink-400">الخاصية الفلزية</span>
+                        </div>
+                        <p class="text-sm text-gray-400">قدرة الذرة على فقد الإلكترونات وتكوين أيونات موجبة</p>
+                    </div>
+                    <div class="concept-card">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-2xl">💎</span>
+                            <span class="font-bold text-cyan-400">الخاصية اللافلزية</span>
+                        </div>
+                        <p class="text-sm text-gray-400">قدرة الذرة على اكتساب الإلكترونات وتكوين أيونات سالبة</p>
+                    </div>
+                    <div class="concept-card">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-2xl">🍋</span>
+                            <span class="font-bold text-orange-400">الخاصية الحامضية</span>
+                        </div>
+                        <p class="text-sm text-gray-400">خاصية أكاسيد اللافلزات - تتفاعل مع الماء وتعطي أحماض</p>
+                    </div>
+                    <div class="concept-card">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-2xl">🧼</span>
+                            <span class="font-bold text-teal-400">الخاصية القاعدية</span>
+                        </div>
+                        <p class="text-sm text-gray-400">خاصية أكاسيد الفلزات - تتفاعل مع الماء وتعطي قواعد</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Section 1: Metallic Character -->
+    <section id="metallic" class="py-12 sm:py-16 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-8 sm:mb-12">
+                <div class="inline-block bg-gradient-to-r from-pink-500 to-rose-500 p-3 sm:p-4 rounded-2xl mb-4">
+                    <span class="text-3xl sm:text-4xl">⚡</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-black mb-2">الخاصية الفلزية</h2>
+                <p class="text-gray-400 text-sm sm:text-base">Metallic Character</p>
+                <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-pink-500 to-rose-500 mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="space-y-6 sm:space-y-8">
+                <!-- Definition Card -->
+                <div class="card-glow bg-white/5 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <div class="flex flex-col sm:flex-row items-start gap-4 mb-6">
+                        <div class="teacher-avatar rounded-full flex items-center justify-center flex-shrink-0">👨‍🏫</div>
+                        <div class="speech-bubble p-4 flex-1 text-sm sm:text-base">
+                            <p class="font-bold text-yellow-300 mb-1">أ/ محمد السيد بيقول:</p>
+                            <p>الفلزات دي زي الناس الكريمة اللي بتحب تدي! بتتبرع بالإلكترونات من غير مقابل! 🎁</p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg sm:text-xl font-bold text-pink-400 mb-4 flex items-center gap-2">
+                        <span>🤔</span> يعني إيه فلزية؟
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="highlight-box">
+                            <p class="text-base sm:text-lg">
+                                الفلزية هي <span class="text-yellow-400 font-bold">قدرة الذرة على فقد إلكترون أو أكثر</span> من مستوى الطاقة الأخير وتكوين أيون موجب.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-pink-500/10 rounded-xl p-4 border border-pink-500/30">
+                            <p class="text-pink-300 font-bold mb-3">📌 المعادلة الرمزية:</p>
+                            <div class="text-center">
+                                <div class="chemical-eq text-base sm:text-lg">
+                                    Na → Na<sup>+</sup> + e<sup>-</sup>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-400 mt-3 text-center">الصوديوم بيفقد إلكترون واحد ويتحول لأيون صوديوم موجب</p>
+                        </div>
+                        
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="concept-card">
+                                <p class="font-bold text-pink-300 mb-2">💡 ليه الفلز بيفقد إلكترونات؟</p>
+                                <ul class="text-sm space-y-2 text-gray-300">
+                                    <li>• عشان يوصل لأقرب تركيب غاز خامل (ثماني)</li>
+                                    <li>• عشان يبقى أكثر استقراراً</li>
+                                    <li>• لأن طاقة التأين بتاعته قليلة</li>
+                                </ul>
+                            </div>
+                            <div class="concept-card">
+                                <p class="font-bold text-pink-300 mb-2">🔍 خصائص الفلزات:</p>
+                                <ul class="text-sm space-y-2 text-gray-300">
+                                    <li>• موصلة للحرارة والكهرباء</li>
+                                    <li>• لها بريق معدني</li>
+                                    <li>• قابلة للطرق والسحب</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Atom Diagram -->
+                <div class="card-glow bg-white/5 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <h3 class="text-lg sm:text-xl font-bold text-center mb-6 flex items-center justify-center gap-2">
+                        <span>🎨</span> رسم توضيحي: فقد الإلكترون
+                    </h3>
+                    
+                    <div class="diagram-container">
+                        <div class="flex items-center justify-center gap-2 sm:gap-6 flex-wrap min-w-[300px]">
+                            <!-- Sodium Atom -->
+                            <div class="text-center">
+                                <div class="atom-wrapper mb-3">
+                                    <div class="orbit orbit-1"></div>
+                                    <div class="orbit orbit-2"></div>
+                                    <div class="nucleus bg-gradient-to-br from-pink-500 to-rose-600 text-white shadow-lg shadow-pink-500/50">
+                                        <span class="font-bold">Na</span>
+                                        <span class="text-[8px] sm:text-[10px]">11+</span>
+                                    </div>
+                                    <div class="electron e-orbit-1">e⁻</div>
+                                    <div class="electron e-orbit-2" style="animation-delay: 0.5s;">e⁻</div>
+                                </div>
+                                <p class="text-pink-400 font-bold text-sm">ذرة الصوديوم</p>
+                                <p class="text-gray-500 text-xs">2, 8, 1</p>
+                            </div>
+                            
+                            <!-- Arrow -->
+                            <div class="flex flex-col items-center gap-1 px-2">
+                                <div class="electron electron-leaving">e⁻</div>
+                                <div class="text-2xl sm:text-3xl text-yellow-400">→</div>
+                                <p class="text-yellow-400 text-xs font-bold">فقد e⁻</p>
+                            </div>
+                            
+                            <!-- Sodium Ion -->
+                            <div class="text-center">
+                                <div class="atom-wrapper mb-3">
+                                    <div class="orbit orbit-1"></div>
+                                    <div class="nucleus bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-lg shadow-green-500/50">
+                                        <span class="font-bold">Na⁺</span>
+                                        <span class="text-[8px] sm:text-[10px]">11+</span>
+                                    </div>
+                                    <div class="electron e-orbit-1">e⁻</div>
+                                </div>
+                                <p class="text-green-400 font-bold text-sm">أيون الصوديوم</p>
+                                <p class="text-gray-500 text-xs">2, 8 (مستقر)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 bg-yellow-500/10 rounded-xl p-3 sm:p-4 border border-yellow-500/20 text-center">
+                        <p class="text-yellow-300 text-sm sm:text-base">
+                            ⚡ الصوديوم فقد إلكترون واحد وبقى زي النيون (غاز خامل) = مستقر!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Trends -->
+                <div class="card-glow bg-white/5 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <h3 class="text-xl sm:text-2xl font-bold text-center mb-6 sm:mb-8">📊 الفلزية في الجدول الدوري</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 sm:gap-8">
+                        <!-- In Group -->
+                        <div class="diagram-container">
+                            <h4 class="text-base sm:text-lg font-bold text-pink-400 mb-4 text-center">⬇️ في المجموعة الواحدة</h4>
+                            <div class="flex flex-col items-center gap-2">
+                                <div class="element-box rounded-xl bg-gradient-to-br from-pink-300 to-pink-400 flex flex-col items-center justify-center text-black font-bold shadow-lg">
+                                    <span>Li</span>
+                                    <span class="text-[10px] opacity-70">3</span>
+                                </div>
+                                <div class="text-yellow-400">⬇️</div>
+                                <div class="element-box rounded-xl bg-gradient-to-br from-pink-400 to-pink-500 flex flex-col items-center justify-center text-white font-bold shadow-lg">
+                                    <span>Na</span>
+                                    <span class="text-[10px] opacity-70">11</span>
+                                </div>
+                                <div class="text-yellow-400">⬇️</div>
+                                <div class="element-box rounded-xl bg-gradient-to-br from-pink-500 to-pink-600 flex flex-col items-center justify-center text-white font-bold shadow-lg">
+                                    <span>K</span>
+                                    <span class="text-[10px] opacity-70">19</span>
+                                </div>
+                                <div class="text-yellow-400">⬇️</div>
+                                <div class="element-box rounded-xl bg-gradient-to-br from-pink-600 to-rose-600 flex flex-col items-center justify-center text-white font-bold shadow-lg shadow-pink-500/30">
+                                    <span>Cs</span>
+                                    <span class="text-[10px] opacity-70">55</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 bg-green-500/20 rounded-xl p-3 sm:p-4 border border-green-500/30 text-center">
+                                <p class="text-green-400 font-bold">✅ الفلزية بتزيد</p>
+                                <p class="text-gray-300 text-xs sm:text-sm mt-1">الحجم الذري ↑ = بُعد الإلكترون ↑ = سهولة الفقد ↑</p>
+                            </div>
+                        </div>
+                        
+                        <!-- In Period -->
+                        <div class="diagram-container">
+                            <h4 class="text-base sm:text-lg font-bold text-blue-400 mb-4 text-center">➡️ في الدورة الواحدة</h4>
+                            <div class="flex items-center justify-center gap-1 sm:gap-2 flex-wrap mb-4">
+                                <div class="element-box rounded-xl bg-gradient-to-br from-pink-500 to-pink-600 flex flex-col items-center justify-center text-white font-bold shadow-lg">
+                                    <span>Na</span>
+                                    <span class="text-[10px] opacity-70">11</span>
+                                </div>
+                                <span class="text-yellow-400 text-sm">→</span>
+                                <div class="element-box rounded-xl bg-gradient-to-br from-pink-400 to-pink-500 flex flex-col items-center justify-center text-white font-bold shadow-lg">
+                                    <span>Mg</span>
+                                    <span class="text-[10px] opacity-70">12</span>
+                                </div>
+                                <span class="text-yellow-400 text-sm">→</span>
+                                <div class="element-box rounded-xl bg-gradient-to-br from-pink-300 to-pink-400 flex flex-col items-center justify-center text-black font-bold shadow-lg">
+                                    <span>Al</span>
+                                    <span class="text-[10px] opacity-70">13</span>
+                                </div>
+                                <span class="text-yellow-400 text-sm">→</span>
+                                <div class="element-box rounded-xl bg-gradient-to-br from-gray-400 to-gray-500 flex flex-col items-center justify-center text-white font-bold shadow-lg">
+                                    <span>Si</span>
+                                    <span class="text-[10px] opacity-70">14</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 bg-red-500/20 rounded-xl p-3 sm:p-4 border border-red-500/30 text-center">
+                                <p class="text-red-400 font-bold">❌ الفلزية بتقل</p>
+                                <p class="text-gray-300 text-xs sm:text-sm mt-1">الشحنة النووية ↑ = جذب النواة ↑ = صعوبة الفقد ↑</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Important Notes -->
+                    <div class="mt-6 sm:mt-8 space-y-3">
+                        <div class="important-note">
+                            <div class="flex items-start gap-3">
+                                <span class="text-xl sm:text-2xl">⚠️</span>
+                                <div>
+                                    <p class="text-red-300 font-bold">معلومة مهمة جداً:</p>
+                                    <p class="text-gray-300 text-sm">السيزيوم Cs هو أكتر عنصر فلزي مستقر - لو وقعت منه نقطة في الميه هتعمل انفجار! 💥</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            <div class="bg-purple-500/10 rounded-xl p-4 border border-purple-500/30">
+                                <div class="flex items-start gap-3">
+                                    <span class="text-xl">🧠</span>
+                                    <div>
+                                        <p class="text-purple-300 font-bold text-sm">تريك للحفظ:</p>
+                                        <p class="text-gray-300 text-xs sm:text-sm">الفلزية = فَقْد = الفلز كريم وبيدّي!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-blue-500/10 rounded-xl p-4 border border-blue-500/30">
+                                <div class="flex items-start gap-3">
+                                    <span class="text-xl">📍</span>
+                                    <div>
+                                        <p class="text-blue-300 font-bold text-sm">موقع أعلى فلزية:</p>
+                                        <p class="text-gray-300 text-xs sm:text-sm">أسفل يسار الجدول الدوري</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz -->
+                <div class="card-glow bg-gradient-to-br from-purple-900/30 to-indigo-900/30 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <div class="flex items-center justify-center gap-3 mb-6">
+                        <span class="text-2xl sm:text-3xl">🧠</span>
+                        <h3 class="text-xl sm:text-2xl font-bold">اختبر نفسك - الفلزية</h3>
+                    </div>
+                    <div id="metallic-quiz"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Section 2: Non-Metallic Character -->
+    <section id="nonmetallic" class="py-12 sm:py-16 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-8 sm:mb-12">
+                <div class="inline-block bg-gradient-to-r from-cyan-500 to-blue-500 p-3 sm:p-4 rounded-2xl mb-4">
+                    <span class="text-3xl sm:text-4xl">💎</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-black mb-2">الخاصية اللافلزية</h2>
+                <p class="text-gray-400 text-sm sm:text-base">Non-Metallic Character</p>
+                <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <div class="space-y-6 sm:space-y-8">
+                <!-- Definition -->
+                <div class="card-glow bg-white/5 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <div class="flex flex-col sm:flex-row items-start gap-4 mb-6">
+                        <div class="teacher-avatar rounded-full flex items-center justify-center flex-shrink-0">👨‍🏫</div>
+                        <div class="speech-bubble p-4 flex-1 text-sm sm:text-base">
+                            <p class="font-bold text-yellow-300 mb-1">أ/ محمد السيد بيقول:</p>
+                            <p>اللافلزات عكس الفلزات تماماً! دي طماعة وبتحب تاخد إلكترونات! زي الشخص البخيل! 😂</p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg sm:text-xl font-bold text-cyan-400 mb-4 flex items-center gap-2">
+                        <span>🤔</span> يعني إيه لافلزية؟
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="highlight-box" style="border-color: rgba(6, 182, 212, 0.3); background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);">
+                            <p class="text-base sm:text-lg">
+                                اللافلزية هي <span class="text-cyan-400 font-bold">قدرة الذرة على اكتساب إلكترون أو أكثر</span> وتكوين أيون سالب.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-cyan-500/10 rounded-xl p-4 border border-cyan-500/30">
+                            <p class="text-cyan-300 font-bold mb-3">📌 المعادلة الرمزية:</p>
+                            <div class="text-center">
+                                <div class="chemical-eq text-base sm:text-lg">
+                                    Cl + e<sup>-</sup> → Cl<sup>-</sup>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-400 mt-3 text-center">الكلور بيكتسب إلكترون ويتحول لأيون كلوريد سالب</p>
+                        </div>
+                        
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="concept-card">
+                                <p class="font-bold text-cyan-300 mb-2">💡 ليه اللافلز بيكتسب؟</p>
+                                <ul class="text-sm space-y-2 text-gray-300">
+                                    <li>• عشان يكمّل 8 إلكترونات في الأخير</li>
+                                    <li>• عشان يوصل لتركيب غاز خامل</li>
+                                    <li>• لأن الألفة الإلكترونية عالية</li>
+                                </ul>
+                            </div>
+                            <div class="concept-card">
+                                <p class="font-bold text-cyan-300 mb-2">🔍 خصائص اللافلزات:</p>
+                                <ul class="text-sm space-y-2 text-gray-300">
+                                    <li>• رديئة التوصيل للحرارة والكهرباء</li>
+                                    <li>• هشة وقابلة للكسر</li>
+                                    <li>• لا يوجد لها بريق (عادةً)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Atom Diagram -->
+                <div class="card-glow bg-white/5 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <h3 class="text-lg sm:text-xl font-bold text-center mb-6 flex items-center justify-center gap-2">
+                        <span>🎨</span> رسم توضيحي: اكتساب الإلكترون
+                    </h3>
+                    
+                    <div class="diagram-container">
+                        <div class="flex items-center justify-center gap-2 sm:gap-6 flex-wrap min-w-[300px]">
+                            <!-- Chlorine Atom -->
+                            <div class="text-center">
+                                <div class="atom-wrapper mb-3">
+                                    <div class="orbit orbit-1"></div>
+                                    <div class="orbit orbit-2"></div>
+                                    <div class="nucleus bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/50">
+                                        <span class="font-bold">Cl</span>
+                                        <span class="text-[8px] sm:text-[10px]">17+</span>
+                                    </div>
+                                    <div class="electron e-orbit-1">e⁻</div>
+                                    <div class="electron e-orbit-2" style="animation-delay: 0.3s;">e⁻</div>
+                                </div>
+                                <p class="text-cyan-400 font-bold text-sm">ذرة الكلور</p>
+                                <p class="text-gray-500 text-xs">2, 8, 7</p>
+                            </div>
+                            
+                            <!-- Arrow -->
+                            <div class="flex flex-col items-center gap-1 px-2">
+                                <div class="electron electron-entering">e⁻</div>
+                                <div class="text-2xl sm:text-3xl text-yellow-400">←</div>
+                                <p class="text-yellow-400 text-xs font-bold">اكتساب e⁻</p>
+                            </div>
+                            
+                            <!-- Chloride Ion -->
+                            <div class="text-center">
+                                <div class="atom-wrapper mb-3">
+                                    <div class="orbit orbit-1"></div>
+                                    <div class="orbit orbit-2"></div>
+                                    <div class="orbit orbit-3" style="border-color: rgba(168, 85, 247, 0.4);"></div>
+                                    <div class="nucleus bg-gradient-to-br from-purple-500 to-violet-600 text-white shadow-lg shadow-purple-500/50">
+                                        <span class="font-bold">Cl⁻</span>
+                                        <span class="text-[8px] sm:text-[10px]">17+</span>
+                                    </div>
+                                    <div class="electron e-orbit-1">e⁻</div>
+                                    <div class="electron e-orbit-2" style="animation-delay: 0.3s;">e⁻</div>
+                                    <div class="electron e-orbit-3" style="animation-delay: 0.6s;">e⁻</div>
+                                </div>
+                                <p class="text-purple-400 font-bold text-sm">أيون الكلوريد</p>
+                                <p class="text-gray-500 text-xs">2, 8, 8 (مستقر)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 bg-cyan-500/10 rounded-xl p-3 sm:p-4 border border-cyan-500/20 text-center">
+                        <p class="text-cyan-300 text-sm sm:text-base">
+                            💎 الكلور اكتسب إلكترون وبقى زي الأرجون (غاز خامل) = مستقر!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Comparison Table -->
+                <div class="card-glow bg-white/5 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <h3 class="text-xl sm:text-2xl font-bold text-center mb-6 sm:mb-8">⚔️ مقارنة: الفلزية VS اللافلزية</h3>
+                    
+                    <div class="table-scroll">
+                        <table class="w-full text-xs sm:text-sm">
+                            <thead>
+                                <tr class="border-b-2 border-gray-600">
+                                    <th class="py-3 px-2 sm:px-4 text-right text-pink-400">الفلزية ⚡</th>
+                                    <th class="py-3 px-2 sm:px-4 text-center text-gray-400">وجه المقارنة</th>
+                                    <th class="py-3 px-2 sm:px-4 text-left text-cyan-400">💎 اللافلزية</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-700/50">
+                                    <td class="py-3 px-2 sm:px-4 text-right">فقد إلكترونات</td>
+                                    <td class="py-3 px-2 sm:px-4 text-center text-gray-500">التعريف</td>
+                                    <td class="py-3 px-2 sm:px-4 text-left">اكتساب إلكترونات</td>
+                                </tr>
+                                <tr class="border-b border-gray-700/50">
+                                    <td class="py-3 px-2 sm:px-4 text-right">أيون موجب <span class="text-green-400">(+)</span></td>
+                                    <td class="py-3 px-2 sm:px-4 text-center text-gray-500">نوع الأيون</td>
+                                    <td class="py-3 px-2 sm:px-4 text-left">أيون سالب <span class="text-red-400">(-)</span></td>
+                                </tr>
+                                <tr class="border-b border-gray-700/50">
+                                    <td class="py-3 px-2 sm:px-4 text-right"><span class="text-green-400 font-bold">تزيد ⬆️</span></td>
+                                    <td class="py-3 px-2 sm:px-4 text-center text-gray-500">في المجموعة ⬇️</td>
+                                    <td class="py-3 px-2 sm:px-4 text-left"><span class="text-red-400 font-bold">تقل ⬇️</span></td>
+                                </tr>
+                                <tr class="border-b border-gray-700/50">
+                                    <td class="py-3 px-2 sm:px-4 text-right"><span class="text-red-400 font-bold">تقل ⬇️</span></td>
+                                    <td class="py-3 px-2 sm:px-4 text-center text-gray-500">في الدورة →</td>
+                                    <td class="py-3 px-2 sm:px-4 text-left"><span class="text-green-400 font-bold">تزيد ⬆️</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-2 sm:px-4 text-right font-bold text-pink-400">Cs (السيزيوم)</td>
+                                    <td class="py-3 px-2 sm:px-4 text-center text-gray-500">الأقوى</td>
+                                    <td class="py-3 px-2 sm:px-4 text-left font-bold text-cyan-400">F (الفلور)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Periodic Table Map -->
+                    <div class="mt-6 sm:mt-8">
+                        <h4 class="text-base sm:text-lg font-bold text-center mb-4">🗺️ خريطة الجدول الدوري</h4>
+                        <div class="relative bg-gradient-to-br from-pink-500/20 to-cyan-500/20 rounded-xl p-4 sm:p-6 max-w-md mx-auto aspect-[4/3]">
+                            <div class="absolute top-2 right-2 bg-pink-400/80 text-white px-2 py-1 rounded text-[10px] sm:text-xs font-bold">
+                                فلزية ضعيفة
+                            </div>
+                            <div class="absolute bottom-2 right-2 bg-pink-600 text-white px-2 py-1 rounded text-[10px] sm:text-xs font-bold shadow-lg">
+                                Cs 🏆 أعلى فلزية
+                            </div>
+                            <div class="absolute top-2 left-2 bg-cyan-500 text-white px-2 py-1 rounded text-[10px] sm:text-xs font-bold shadow-lg">
+                                F 🏆 أعلى لافلزية
+                            </div>
+                            <div class="absolute bottom-2 left-2 bg-cyan-400/80 text-white px-2 py-1 rounded text-[10px] sm:text-xs font-bold">
+                                لافلزية ضعيفة
+                            </div>
+                            
+                            <div class="flex justify-center items-center h-full gap-8">
+                                <div class="text-center">
+                                    <div class="text-3xl sm:text-4xl mb-1">⬇️</div>
+                                    <p class="text-pink-400 text-[10px] sm:text-xs font-bold">الفلزية ↑</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-3xl sm:text-4xl mb-1">➡️</div>
+                                    <p class="text-cyan-400 text-[10px] sm:text-xs font-bold">اللافلزية ↑</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz -->
+                <div class="card-glow bg-gradient-to-br from-cyan-900/30 to-blue-900/30 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <div class="flex items-center justify-center gap-3 mb-6">
+                        <span class="text-2xl sm:text-3xl">🧠</span>
+                        <h3 class="text-xl sm:text-2xl font-bold">اختبر نفسك - اللافلزية</h3>
+                    </div>
+                    <div id="nonmetallic-quiz"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Section 3: Acidic Character -->
+    <section id="acidic" class="py-12 sm:py-16 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-8 sm:mb-12">
+                <div class="inline-block bg-gradient-to-r from-yellow-500 to-orange-500 p-3 sm:p-4 rounded-2xl mb-4">
+                    <span class="text-3xl sm:text-4xl">🍋</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-black mb-2">الخاصية الحامضية</h2>
+                <p class="text-gray-400 text-sm sm:text-base">Acidic Character of Oxides</p>
+                <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-yellow-500 to-orange-500 mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <div class="space-y-6 sm:space-y-8">
+                <!-- Definition -->
+                <div class="card-glow bg-white/5 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <div class="flex flex-col sm:flex-row items-start gap-4 mb-6">
+                        <div class="teacher-avatar rounded-full flex items-center justify-center flex-shrink-0">👨‍🏫</div>
+                        <div class="speech-bubble p-4 flex-1 text-sm sm:text-base">
+                            <p class="font-bold text-yellow-300 mb-1">أ/ محمد السيد بيقول:</p>
+                            <p>فاكر طعم الليمون الحامض؟ 🍋 ده حمض! يلا نشوف إزاي اللافلزات بتعمل أكاسيد حامضية!</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg sm:text-xl font-bold text-orange-400 mb-4">🧪 أكاسيد اللافلزات = أكاسيد حامضية</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="highlight-box" style="border-color: rgba(251, 191, 36, 0.3);">
+                            <p class="text-base sm:text-lg">
+                                لما <span class="text-cyan-400 font-bold">اللافلزات</span> تتحد مع الأكسجين بتكوّن <span class="text-orange-400 font-bold">أكاسيد حامضية</span> بتتفاعل مع الماء وتدي أحماض.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-orange-500/10 rounded-xl p-4 border border-orange-500/30">
+                            <p class="text-orange-300 font-bold mb-3">📌 القاعدة العامة:</p>
+                            <div class="text-center">
+                                <div class="chemical-eq text-sm sm:text-base">
+                                    أكسيد لافلز + H₂O → حمض
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            <div class="bg-gray-800/50 rounded-xl p-4">
+                                <p class="text-sm text-orange-300 font-bold mb-2">مثال 1: ثاني أكسيد الكربون</p>
+                                <div class="chemical-eq text-center text-sm">
+                                    CO₂ + H₂O → H₂CO₃
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2 text-center">حمض الكربونيك (في المياه الغازية!)</p>
+                            </div>
+                            <div class="bg-gray-800/50 rounded-xl p-4">
+                                <p class="text-sm text-orange-300 font-bold mb-2">مثال 2: ثالث أكسيد الكبريت</p>
+                                <div class="chemical-eq text-center text-sm">
+                                    SO₃ + H₂O → H₂SO₄
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2 text-center">حمض الكبريتيك (ماء النار!)</p>
+                            </div>
+                            <div class="bg-gray-800/50 rounded-xl p-4">
+                                <p class="text-sm text-orange-300 font-bold mb-2">مثال 3: خامس أكسيد النيتروجين</p>
+                                <div class="chemical-eq text-center text-sm">
+                                    N₂O₅ + H₂O → 2HNO₃
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2 text-center">حمض النيتريك</p>
+                            </div>
+                            <div class="bg-gray-800/50 rounded-xl p-4">
+                                <p class="text-sm text-orange-300 font-bold mb-2">مثال 4: خامس أكسيد الفوسفور</p>
+                                <div class="chemical-eq text-center text-sm">
+                                    P₂O₅ + 3H₂O → 2H₃PO₄
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2 text-center">حمض الفوسفوريك</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Relationship with Non-metallic -->
+                <div class="card-glow bg-white/5 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <h3 class="text-lg sm:text-xl font-bold text-center mb-6">🔗 العلاقة بين اللافلزية والحامضية</h3>
+                    
+                    <div class="diagram-container text-center">
+                        <div class="flex items-center justify-center gap-4 sm:gap-8 mb-6">
+                            <div class="text-center">
+                                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-2xl sm:text-3xl mb-2 mx-auto shadow-lg">💎</div>
+                                <p class="text-cyan-400 font-bold text-sm sm:text-base">لافلزية</p>
+                            </div>
+                            <div class="text-3xl sm:text-4xl text-yellow-400 pulse-glow rounded-full w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center">🔗</div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-2xl sm:text-3xl mb-2 mx-auto shadow-lg">🍋</div>
+                                <p class="text-orange-400 font-bold text-sm sm:text-base">حامضية</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-green-500/20 rounded-xl p-4 border border-green-500/30 max-w-sm mx-auto">
+                            <p class="text-green-400 font-bold text-lg">علاقة طردية! ⬆️⬆️</p>
+                            <p class="text-gray-300 text-sm">كل ما اللافلزية تزيد = الحامضية تزيد</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 grid sm:grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3 bg-white/5 rounded-xl p-4">
+                            <span class="text-2xl">⬇️</span>
+                            <div>
+                                <p class="font-bold text-orange-300 text-sm">في المجموعة</p>
+                                <p class="text-gray-400 text-xs sm:text-sm">الحامضية بتقل (زي اللافلزية)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 bg-white/5 rounded-xl p-4">
+                            <span class="text-2xl">➡️</span>
+                            <div>
+                                <p class="font-bold text-orange-300 text-sm">في الدورة</p>
+                                <p class="text-gray-400 text-xs sm:text-sm">الحامضية بتزيد (زي اللافلزية)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz -->
+                <div class="card-glow bg-gradient-to-br from-yellow-900/30 to-orange-900/30 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <div class="flex items-center justify-center gap-3 mb-6">
+                        <span class="text-2xl sm:text-3xl">🧠</span>
+                        <h3 class="text-xl sm:text-2xl font-bold">اختبر نفسك - الحامضية</h3>
+                    </div>
+                    <div id="acidic-quiz"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Section 4: Basic Character -->
+    <section id="basic" class="py-12 sm:py-16 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-8 sm:mb-12">
+                <div class="inline-block bg-gradient-to-r from-teal-500 to-emerald-500 p-3 sm:p-4 rounded-2xl mb-4">
+                    <span class="text-3xl sm:text-4xl">🧼</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-black mb-2">الخاصية القاعدية</h2>
+                <p class="text-gray-400 text-sm sm:text-base">Basic Character of Oxides</p>
+                <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-teal-500 to-emerald-500 mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <div class="space-y-6 sm:space-y-8">
+                <!-- Definition -->
+                <div class="card-glow bg-white/5 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <div class="flex flex-col sm:flex-row items-start gap-4 mb-6">
+                        <div class="teacher-avatar rounded-full flex items-center justify-center flex-shrink-0">👨‍🏫</div>
+                        <div class="speech-bubble p-4 flex-1 text-sm sm:text-base">
+                            <p class="font-bold text-yellow-300 mb-1">أ/ محمد السيد بيقول:</p>
+                            <p>الصابون ليه ملمسه زلق؟ لأنه قاعدي! 🧼 يلا نشوف أكاسيد الفلزات!</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg sm:text-xl font-bold text-teal-400 mb-4">🧪 أكاسيد الفلزات = أكاسيد قاعدية</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="highlight-box" style="border-color: rgba(20, 184, 166, 0.3); background: linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);">
+                            <p class="text-base sm:text-lg">
+                                لما <span class="text-pink-400 font-bold">الفلزات</span> تتحد مع الأكسجين بتكوّن <span class="text-teal-400 font-bold">أكاسيد قاعدية</span> بتتفاعل مع الماء وتدي قواعد (هيدروكسيدات).
+                            </p>
+                        </div>
+                        
+                        <div class="bg-teal-500/10 rounded-xl p-4 border border-teal-500/30">
+                            <p class="text-teal-300 font-bold mb-3">📌 القاعدة العامة:</p>
+                            <div class="text-center">
+                                <div class="chemical-eq text-sm sm:text-base">
+                                    أكسيد فلز + H₂O → قاعدة (هيدروكسيد)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            <div class="bg-gray-800/50 rounded-xl p-4">
+                                <p class="text-sm text-teal-300 font-bold mb-2">مثال 1: أكسيد الصوديوم</p>
+                                <div class="chemical-eq text-center text-sm">
+                                    Na₂O + H₂O → 2NaOH
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2 text-center">هيدروكسيد الصوديوم (الصودا الكاوية)</p>
+                            </div>
+                            <div class="bg-gray-800/50 rounded-xl p-4">
+                                <p class="text-sm text-teal-300 font-bold mb-2">مثال 2: أكسيد الكالسيوم</p>
+                                <div class="chemical-eq text-center text-sm">
+                                    CaO + H₂O → Ca(OH)₂
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2 text-center">هيدروكسيد الكالسيوم (الجير المطفأ)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Relationship with Metallic -->
+                <div class="card-glow bg-white/5 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <h3 class="text-lg sm:text-xl font-bold text-center mb-6">🔗 العلاقة بين الفلزية والقاعدية</h3>
+                    
+                    <div class="diagram-container text-center">
+                        <div class="flex items-center justify-center gap-4 sm:gap-8 mb-6">
+                            <div class="text-center">
+                                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-2xl sm:text-3xl mb-2 mx-auto shadow-lg">⚡</div>
+                                <p class="text-pink-400 font-bold text-sm sm:text-base">فلزية</p>
+                            </div>
+                            <div class="text-3xl sm:text-4xl text-yellow-400 pulse-glow rounded-full w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center">🔗</div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center text-2xl sm:text-3xl mb-2 mx-auto shadow-lg">🧼</div>
+                                <p class="text-teal-400 font-bold text-sm sm:text-base">قاعدية</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-green-500/20 rounded-xl p-4 border border-green-500/30 max-w-sm mx-auto">
+                            <p class="text-green-400 font-bold text-lg">علاقة طردية! ⬆️⬆️</p>
+                            <p class="text-gray-300 text-sm">كل ما الفلزية تزيد = القاعدية تزيد</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 grid sm:grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3 bg-white/5 rounded-xl p-4">
+                            <span class="text-2xl">⬇️</span>
+                            <div>
+                                <p class="font-bold text-teal-300 text-sm">في المجموعة</p>
+                                <p class="text-gray-400 text-xs sm:text-sm">القاعدية بتزيد (زي الفلزية)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 bg-white/5 rounded-xl p-4">
+                            <span class="text-2xl">➡️</span>
+                            <div>
+                                <p class="font-bold text-teal-300 text-sm">في الدورة</p>
+                                <p class="text-gray-400 text-xs sm:text-sm">القاعدية بتقل (زي الفلزية)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Complete Summary -->
+                <div class="card-glow bg-white/5 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <h3 class="text-xl sm:text-2xl font-bold text-center mb-6 sm:mb-8">📋 الملخص الشامل للخواص الأربعة</h3>
+                    
+                    <div class="table-scroll mb-6">
+                        <table class="w-full text-xs sm:text-sm">
+                            <thead>
+                                <tr class="border-b-2 border-gray-600">
+                                    <th class="py-3 px-2 text-right">الخاصية</th>
+                                    <th class="py-3 px-2 text-center">في المجموعة ⬇️</th>
+                                    <th class="py-3 px-2 text-center">في الدورة →</th>
+                                    <th class="py-3 px-2 text-center">مرتبطة بـ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-700/50 bg-pink-500/5">
+                                    <td class="py-3 px-2 font-bold text-pink-400">⚡ الفلزية</td>
+                                    <td class="py-3 px-2 text-center text-green-400">تزيد ⬆️</td>
+                                    <td class="py-3 px-2 text-center text-red-400">تقل ⬇️</td>
+                                    <td class="py-3 px-2 text-center text-gray-400">فقد e⁻</td>
+                                </tr>
+                                <tr class="border-b border-gray-700/50 bg-cyan-500/5">
+                                    <td class="py-3 px-2 font-bold text-cyan-400">💎 اللافلزية</td>
+                                    <td class="py-3 px-2 text-center text-red-400">تقل ⬇️</td>
+                                    <td class="py-3 px-2 text-center text-green-400">تزيد ⬆️</td>
+                                    <td class="py-3 px-2 text-center text-gray-400">اكتساب e⁻</td>
+                                </tr>
+                                <tr class="border-b border-gray-700/50 bg-orange-500/5">
+                                    <td class="py-3 px-2 font-bold text-orange-400">🍋 الحامضية</td>
+                                    <td class="py-3 px-2 text-center text-red-400">تقل ⬇️</td>
+                                    <td class="py-3 px-2 text-center text-green-400">تزيد ⬆️</td>
+                                    <td class="py-3 px-2 text-center text-gray-400">اللافلزية</td>
+                                </tr>
+                                <tr class="bg-teal-500/5">
+                                    <td class="py-3 px-2 font-bold text-teal-400">🧼 القاعدية</td>
+                                    <td class="py-3 px-2 text-center text-green-400">تزيد ⬆️</td>
+                                    <td class="py-3 px-2 text-center text-red-400">تقل ⬇️</td>
+                                    <td class="py-3 px-2 text-center text-gray-400">الفلزية</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Memory Tricks -->
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="bg-purple-500/10 rounded-xl p-4 border border-purple-500/30">
+                            <div class="flex items-start gap-3">
+                                <span class="text-2xl">🧠</span>
+                                <div>
+                                    <p class="text-purple-300 font-bold text-sm mb-1">تريك للحفظ:</p>
+                                    <p class="text-gray-300 text-xs sm:text-sm">
+                                        <span class="text-pink-400">الفلزية</span> + <span class="text-teal-400">القاعدية</span> = صحاب! 🤝<br>
+                                        <span class="text-cyan-400">اللافلزية</span> + <span class="text-orange-400">الحامضية</span> = صحاب! 🤝
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-yellow-500/10 rounded-xl p-4 border border-yellow-500/30">
+                            <div class="flex items-start gap-3">
+                                <span class="text-2xl">💡</span>
+                                <div>
+                                    <p class="text-yellow-300 font-bold text-sm mb-1">الأكاسيد المترددة:</p>
+                                    <p class="text-gray-300 text-xs sm:text-sm">
+                                        Al₂O₃ و ZnO أكاسيد مترددة (أمفوتيرية)<br>
+                                        بتتفاعل مع الأحماض والقواعد!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz -->
+                <div class="card-glow bg-gradient-to-br from-teal-900/30 to-emerald-900/30 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                    <div class="flex items-center justify-center gap-3 mb-6">
+                        <span class="text-2xl sm:text-3xl">🧠</span>
+                        <h3 class="text-xl sm:text-2xl font-bold">اختبر نفسك - القاعدية</h3>
+                    </div>
+                    <div id="basic-quiz"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Final Exam -->
+    <section id="final-exam" class="py-12 sm:py-16 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-8 sm:mb-12">
+                <div class="inline-block bg-gradient-to-r from-yellow-500 via-pink-500 to-purple-500 p-3 sm:p-4 rounded-2xl mb-4">
+                    <span class="text-3xl sm:text-4xl">📝</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-black mb-2">الامتحان النهائي</h2>
+                <p class="text-gray-400 text-sm sm:text-base">20 سؤال شامل - أسئلة عشوائية كل مرة!</p>
+                <div class="w-24 sm:w-32 h-1 bg-gradient-to-r from-yellow-500 to-purple-500 mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <div class="card-glow bg-gradient-to-br from-indigo-900/30 to-purple-900/30 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+                <div id="final-quiz"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 sm:py-12 px-4 bg-black/30 border-t border-white/10 mb-16 lg:mb-0">
+        <div class="container mx-auto text-center">
+            <div class="text-3xl sm:text-4xl mb-4 floating">🧪</div>
+            <p class="text-lg sm:text-xl font-bold text-yellow-400 mb-2">منصة الكيمياء مع أ/ محمد السيد 👨‍🏫</p>
+            <p class="text-gray-400 text-sm sm:text-base mb-4">ذاكر صح.. وافهم مش تحفظ! 💪</p>
+            <div class="flex justify-center gap-4">
+                <span class="text-xl sm:text-2xl floating" style="animation-delay: 0s">⚗️</span>
+                <span class="text-xl sm:text-2xl floating" style="animation-delay: 0.2s">🔬</span>
+                <span class="text-xl sm:text-2xl floating" style="animation-delay: 0.4s">🧬</span>
+                <span class="text-xl sm:text-2xl floating" style="animation-delay: 0.6s">⚡</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll to section
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            const offset = 60;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+            
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+            
+            // Update active nav
+            updateActiveNav(id);
+        }
+        
+        // Update active navigation
+        function updateActiveNav(activeId) {
+            document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            const activeItem = document.getElementById('nav-' + activeId);
+            if (activeItem) activeItem.classList.add('active');
+        }
+        
+        // Progress bar and active section detection
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress-bar').style.width = scrolled + '%';
+            
+            // Detect current section
+            const sections = ['intro', 'metallic', 'nonmetallic', 'acidic', 'basic', 'final-exam'];
+            let current = 'intro';
+            
+            sections.forEach(id => {
+                const section = document.getElementById(id);
+                if (section) {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 150 && rect.bottom >= 150) {
+                        current = id;
+                    }
+                }
+            });
+            
+            updateActiveNav(current);
+        });
+
+        // Comprehensive Question Bank - 80+ Questions
+        const questionBank = {
+            metallic: [
+                { q: "إيه هي الخاصية الفلزية؟", opts: ["قدرة الذرة على اكتساب إلكترونات", "قدرة الذرة على فقد إلكترونات", "قدرة الذرة على مشاركة إلكترونات", "قدرة الذرة على تكوين روابط تساهمية"], correct: 1, exp: "الفلزية = قدرة الذرة على فقد إلكترونات وتكوين أيون موجب! ⚡" },
+                { q: "في المجموعة الواحدة، الفلزية بتـ...؟", opts: ["بتقل كل ما نزلنا لتحت", "بتزيد كل ما نزلنا لتحت", "بتفضل ثابتة", "بتتغير عشوائياً"], correct: 1, exp: "الفلزية بتزيد لتحت لأن الحجم الذري بيزيد = الإلكترون أبعد! ⬇️" },
+                { q: "أي عنصر أكتر فلزية؟", opts: ["Li", "Na", "K", "Cs"], correct: 3, exp: "Cs (السيزيوم) أكتر فلزية لأنه أسفل المجموعة الأولى! 🏆" },
+                { q: "ليه الفلزية بتزيد في المجموعة من فوق لتحت؟", opts: ["لأن عدد البروتونات بيزيد", "لأن الحجم الذري بيزيد", "لأن الكتلة الذرية بتقل", "لأن عدد الإلكترونات بيقل"], correct: 1, exp: "الحجم بيزيد = الإلكترون أبعد = أسهل يتفقد! 📏" },
+                { q: "في الدورة الواحدة، الفلزية بتـ...؟", opts: ["بتزيد من شمال ليمين", "بتقل من شمال ليمين", "بتفضل ثابتة", "بتتغير عشوائياً"], correct: 1, exp: "الفلزية بتقل في الدورة لأن الشحنة النووية بتزيد! →" },
+                { q: "أي عنصر أقل فلزية: Na, Mg, Al؟", opts: ["Na", "Mg", "Al", "كلهم متساويين"], correct: 2, exp: "Al أقل فلزية لأنه في أقصى يمين الدورة من بين الثلاثة! 📉" },
+                { q: "الفلز لما يفقد إلكترون بيكوّن...؟", opts: ["أيون سالب", "أيون موجب", "ذرة متعادلة", "جزيء"], correct: 1, exp: "الفلز بيفقد e⁻ ويبقى أيون موجب (+)! ➕" },
+                { q: "ليه الفلزية بتقل في الدورة من شمال ليمين؟", opts: ["لأن الحجم بيزيد", "لأن الشحنة النووية بتزيد", "لأن عدد الإلكترونات بيقل", "لأن الكتلة بتقل"], correct: 1, exp: "الشحنة النووية بتزيد = النواة بتجذب الإلكترونات أكتر! 🧲" },
+                { q: "رتب تصاعدياً حسب الفلزية: K, Li, Na", opts: ["Li < Na < K", "K < Na < Li", "Na < Li < K", "Li < K < Na"], correct: 0, exp: "Li أقل فلزية (فوق) وK أكتر فلزية (تحت)! 📊" },
+                { q: "السيزيوم Cs لما يتحط في الميه...؟", opts: ["بيذوب ببطء", "مش بيتفاعل", "بيعمل انفجار", "بيتجمد"], correct: 2, exp: "السيزيوم فلزي جداً وبيتفاعل بعنف مع الماء! 💥" },
+                { q: "الصوديوم لما يفقد إلكترون بيبقى زي مين؟", opts: ["الهيليوم", "النيون", "الأرجون", "الكريبتون"], correct: 1, exp: "Na⁺ = 10 إلكترون = زي النيون (2, 8)! 💡" },
+                { q: "أي من دول فلز؟", opts: ["Cl", "S", "Na", "O"], correct: 2, exp: "Na (الصوديوم) فلز من المجموعة الأولى! ⚡" },
+                { q: "الفلزات بتتميز بـ...؟", opts: ["رديئة التوصيل", "قابلة للكسر", "لها بريق معدني", "غازية في درجة الحرارة العادية"], correct: 2, exp: "الفلزات لها بريق معدني وموصلة للكهرباء! ✨" },
+                { q: "أكتر فلز نشاط في الدورة الثالثة؟", opts: ["Na", "Mg", "Al", "Si"], correct: 0, exp: "Na أكتر فلزية في الدورة الثالثة (أقصى يسار)! 🏆" },
+                { q: "طاقة التأين في الفلزات...؟", opts: ["عالية جداً", "منخفضة", "ثابتة", "متغيرة"], correct: 1, exp: "طاقة التأين منخفضة عشان سهل تفقد إلكترونات! ⚡" },
+            ],
+            nonmetallic: [
+                { q: "إيه هي اللافلزية؟", opts: ["قدرة الذرة على فقد إلكترونات", "قدرة الذرة على اكتساب إلكترونات", "قدرة الذرة على تكوين روابط فلزية", "قدرة الذرة على التسامي"], correct: 1, exp: "اللافلزية = قدرة الذرة على اكتساب إلكترونات وتكوين أيون سالب! 💎" },
+                { q: "أكتر عنصر لافلزي في الجدول الدوري؟", opts: ["Cl", "O", "F", "N"], correct: 2, exp: "الفلور F هو أكتر عنصر لافلزي! لأنه في أعلى يمين الجدول! 🏆" },
+                { q: "في الدورة الواحدة، اللافلزية بتـ...؟", opts: ["بتقل من شمال ليمين", "بتزيد من شمال ليمين", "بتفضل ثابتة", "بتتغير عشوائياً"], correct: 1, exp: "اللافلزية بتزيد في الدورة من شمال ليمين! →" },
+                { q: "في المجموعة الواحدة، اللافلزية بتـ...؟", opts: ["بتزيد كل ما نزلنا لتحت", "بتقل كل ما نزلنا لتحت", "بتفضل ثابتة", "بتتغير عشوائياً"], correct: 1, exp: "اللافلزية بتقل لتحت عكس الفلزية! ⬇️" },
+                { q: "اللافلز لما يكتسب إلكترون بيكوّن...؟", opts: ["أيون موجب", "أيون سالب", "ذرة متعادلة", "جزيء"], correct: 1, exp: "اللافلز بيكتسب e⁻ ويبقى أيون سالب (-)! ➖" },
+                { q: "أي عنصر أكتر لافلزية: F, Cl, Br؟", opts: ["Br", "Cl", "F", "كلهم متساويين"], correct: 2, exp: "F أكتر لافلزية لأنه أعلى المجموعة! 🔝" },
+                { q: "العلاقة بين الفلزية واللافلزية؟", opts: ["طردية", "عكسية", "مفيش علاقة", "متساوية"], correct: 1, exp: "علاقة عكسية! لما الفلزية تزيد، اللافلزية تقل! ↔️" },
+                { q: "ليه الفلور أكتر لافلزية من الكلور؟", opts: ["لأن حجمه أكبر", "لأن حجمه أصغر", "لأن كتلته أكبر", "لأن عدد بروتوناته أكتر"], correct: 1, exp: "الفلور حجمه أصغر = النواة أقرب = بتجذب بقوة! 🧲" },
+                { q: "رتب تنازلياً حسب اللافلزية: Cl, Br, I", opts: ["I > Br > Cl", "Cl > Br > I", "Br > Cl > I", "كلهم متساويين"], correct: 1, exp: "Cl أكتر لافلزية لأنه أعلى المجموعة! 📊" },
+                { q: "أين يقع أكتر عنصر لافلزي في الجدول؟", opts: ["أسفل اليسار", "أعلى اليمين", "في المنتصف", "أسفل اليمين"], correct: 1, exp: "أعلى يمين الجدول الدوري (الفلور)! 📍" },
+                { q: "الكلور لما يكتسب إلكترون بيبقى زي مين؟", opts: ["النيون", "الأرجون", "الكريبتون", "الزينون"], correct: 1, exp: "Cl⁻ = 18 إلكترون = زي الأرجون (2, 8, 8)! 💡" },
+                { q: "أي من دول لافلز؟", opts: ["Na", "Mg", "Al", "Cl"], correct: 3, exp: "Cl (الكلور) لافلز من المجموعة السابعة! 💎" },
+                { q: "اللافلزات بتتميز بـ...؟", opts: ["موصلة للكهرباء", "قابلة للطرق", "رديئة التوصيل", "لها بريق معدني"], correct: 2, exp: "اللافلزات رديئة التوصيل للحرارة والكهرباء! ❌" },
+                { q: "الألفة الإلكترونية في اللافلزات...؟", opts: ["منخفضة", "عالية", "صفر", "سالبة دايماً"], correct: 1, exp: "الألفة الإلكترونية عالية عشان بتحب تاخد إلكترونات! 💪" },
+                { q: "أي مجموعة أكتر لافلزية؟", opts: ["الأولى", "الرابعة", "السابعة", "الثامنة"], correct: 2, exp: "المجموعة السابعة (الهالوجينات) أكتر لافلزية! 💎" },
+            ],
+            acidic: [
+                { q: "أكاسيد اللافلزات بتكون...؟", opts: ["قاعدية", "حامضية", "متعادلة", "مترددة دايماً"], correct: 1, exp: "أكاسيد اللافلزات = أكاسيد حامضية! 🍋" },
+                { q: "CO₂ + H₂O = ؟", opts: ["NaOH", "H₂CO₃", "HCl", "Ca(OH)₂"], correct: 1, exp: "ثاني أكسيد الكربون + ماء = حمض الكربونيك! ⚗️" },
+                { q: "الحامضية مرتبطة بأي خاصية؟", opts: ["الفلزية", "اللافلزية", "الحجم الذري", "الكتلة الذرية"], correct: 1, exp: "الحامضية مرتبطة باللافلزية! علاقة طردية! 🔗" },
+                { q: "في الدورة، الحامضية بتـ...؟", opts: ["بتقل من شمال ليمين", "بتزيد من شمال ليمين", "بتفضل ثابتة", "بتتغير عشوائياً"], correct: 1, exp: "الحامضية بتزيد زي اللافلزية من شمال ليمين! →" },
+                { q: "في المجموعة، الحامضية بتـ...؟", opts: ["بتزيد لتحت", "بتقل لتحت", "بتفضل ثابتة", "بتتغير عشوائياً"], correct: 1, exp: "الحامضية بتقل زي اللافلزية من فوق لتحت! ⬇️" },
+                { q: "SO₃ + H₂O = ؟", opts: ["H₂SO₃", "H₂SO₄", "NaOH", "SO₂"], correct: 1, exp: "ثالث أكسيد الكبريت + ماء = حمض الكبريتيك! ⚗️" },
+                { q: "أي أكسيد من دول حامضي؟", opts: ["Na₂O", "CaO", "SO₂", "MgO"], correct: 2, exp: "SO₂ أكسيد لافلز (الكبريت) فهو حامضي! 🍋" },
+                { q: "N₂O₅ + H₂O = ؟", opts: ["HNO₂", "2HNO₃", "NH₃", "NO₂"], correct: 1, exp: "خامس أكسيد النيتروجين + ماء = حمض النيتريك! ⚗️" },
+                { q: "العلاقة بين اللافلزية والحامضية؟", opts: ["عكسية", "طردية", "مفيش علاقة", "متغيرة"], correct: 1, exp: "علاقة طردية! كل ما اللافلزية تزيد، الحامضية تزيد! ⬆️⬆️" },
+                { q: "أي عنصر أكسيده الأكثر حامضية: S, P, Si؟", opts: ["Si", "P", "S", "كلهم متساويين"], correct: 2, exp: "S أكتر لافلزية فأكسيده أكتر حامضية! 🍋" },
+                { q: "P₂O₅ + 3H₂O = ؟", opts: ["H₃PO₄", "2H₃PO₄", "HPO₃", "H₃PO₃"], correct: 1, exp: "خامس أكسيد الفوسفور + 3 ماء = 2 حمض فوسفوريك! ⚗️" },
+                { q: "المياه الغازية فيها حمض إيه؟", opts: ["H₂SO₄", "HCl", "H₂CO₃", "HNO₃"], correct: 2, exp: "المياه الغازية فيها حمض الكربونيك من تفاعل CO₂ + H₂O! 🥤" },
+                { q: "الأمطار الحمضية بتتكون من أكاسيد...؟", opts: ["الفلزات", "اللافلزات", "الغازات النبيلة", "العناصر الانتقالية"], correct: 1, exp: "الأمطار الحمضية من SO₂ وNO₂ (أكاسيد لافلزات)! 🌧️" },
+                { q: "أي حمض أقوى: H₂CO₃ أم H₂SO₄؟", opts: ["H₂CO₃", "H₂SO₄", "متساويين", "مفيش فرق"], correct: 1, exp: "H₂SO₄ أقوى لأن S أكتر لافلزية من C! 💪" },
+                { q: "Cl₂O₇ + H₂O = ؟", opts: ["HClO", "HClO₃", "2HClO₄", "HCl"], correct: 2, exp: "سباعي أكسيد الكلور + ماء = حمض البركلوريك! ⚗️" },
+            ],
+            basic: [
+                { q: "أكاسيد الفلزات بتكون...؟", opts: ["حامضية", "قاعدية", "متعادلة", "غازية"], correct: 1, exp: "أكاسيد الفلزات = أكاسيد قاعدية! 🧼" },
+                { q: "Na₂O + H₂O = ؟", opts: ["H₂SO₄", "HCl", "2NaOH", "Na₂CO₃"], correct: 2, exp: "أكسيد الصوديوم + ماء = هيدروكسيد الصوديوم! ⚗️" },
+                { q: "القاعدية مرتبطة بأي خاصية؟", opts: ["اللافلزية", "الفلزية", "الحجم الذري", "الكتلة الذرية"], correct: 1, exp: "القاعدية مرتبطة بالفلزية! علاقة طردية! 🔗" },
+                { q: "في الدورة، القاعدية بتـ...؟", opts: ["بتزيد من شمال ليمين", "بتقل من شمال ليمين", "بتفضل ثابتة", "بتتغير عشوائياً"], correct: 1, exp: "القاعدية بتقل زي الفلزية من شمال ليمين! →" },
+                { q: "في المجموعة، القاعدية بتـ...؟", opts: ["بتقل لتحت", "بتزيد لتحت", "بتفضل ثابتة", "بتتغير عشوائياً"], correct: 1, exp: "القاعدية بتزيد زي الفلزية من فوق لتحت! ⬇️" },
+                { q: "CaO + H₂O = ؟", opts: ["CaCO₃", "Ca(OH)₂", "CaCl₂", "CaSO₄"], correct: 1, exp: "أكسيد الكالسيوم + ماء = هيدروكسيد الكالسيوم! ⚗️" },
+                { q: "أي أكسيد من دول قاعدي؟", opts: ["CO₂", "SO₂", "MgO", "NO₂"], correct: 2, exp: "MgO أكسيد فلز (الماغنيسيوم) فهو قاعدي! 🧼" },
+                { q: "CaO اسمه الشائع إيه؟", opts: ["الجير المطفأ", "الجير الحي", "الحجر الجيري", "الطباشير"], correct: 1, exp: "CaO = الجير الحي (Quick Lime)! 🔥" },
+                { q: "العلاقة بين الفلزية والقاعدية؟", opts: ["عكسية", "طردية", "مفيش علاقة", "متغيرة"], correct: 1, exp: "علاقة طردية! كل ما الفلزية تزيد، القاعدية تزيد! ⬆️⬆️" },
+                { q: "أي عنصر أكسيده الأكثر قاعدية: Na, Mg, Al؟", opts: ["Al", "Mg", "Na", "كلهم متساويين"], correct: 2, exp: "Na أكتر فلزية فأكسيده أكتر قاعدية! 🧼" },
+                { q: "K₂O + H₂O = ؟", opts: ["KOH", "2KOH", "K₂CO₃", "KCl"], correct: 1, exp: "أكسيد البوتاسيوم + ماء = 2 هيدروكسيد بوتاسيوم! ⚗️" },
+                { q: "الصودا الكاوية هي...؟", opts: ["NaCl", "NaOH", "Na₂CO₃", "Na₂SO₄"], correct: 1, exp: "الصودا الكاوية = هيدروكسيد الصوديوم NaOH! 🧼" },
+                { q: "Ca(OH)₂ اسمه إيه؟", opts: ["الجير الحي", "الجير المطفأ", "الحجر الجيري", "كربونات الكالسيوم"], correct: 1, exp: "هيدروكسيد الكالسيوم = الجير المطفأ (Slaked Lime)! 💧" },
+                { q: "أي أكسيد أقوى قاعدية: Na₂O أم MgO؟", opts: ["MgO", "Na₂O", "متساويين", "مفيش فرق"], correct: 1, exp: "Na₂O أقوى قاعدية لأن Na أكتر فلزية! 💪" },
+                { q: "BaO + H₂O = ؟", opts: ["BaCO₃", "Ba(OH)₂", "BaCl₂", "BaSO₄"], correct: 1, exp: "أكسيد الباريوم + ماء = هيدروكسيد الباريوم! ⚗️" },
+            ],
+            general: [
+                { q: "أكاسيد العناصر المترددة (زي Al₂O₃) بتتصرف إزاي؟", opts: ["حامضية بس", "قاعدية بس", "حامضية أو قاعدية حسب الوسط", "متعادلة دايماً"], correct: 2, exp: "الأكاسيد المترددة (أمفوتيرية) بتتفاعل مع الأحماض والقواعد! ⚖️" },
+                { q: "أي مجموعة فيها أكتر عناصر فلزية؟", opts: ["السابعة", "الأولى", "الثامنة", "الرابعة"], correct: 1, exp: "المجموعة الأولى (الفلزات القلوية) أكتر فلزية! ⚡" },
+                { q: "أي مجموعة فيها أكتر عناصر لافلزية؟", opts: ["الأولى", "الرابعة", "السابعة", "الثامنة"], correct: 2, exp: "المجموعة السابعة (الهالوجينات) أكتر لافلزية! 💎" },
+                { q: "الغازات النبيلة فلزية ولا لافلزية؟", opts: ["فلزية جداً", "لافلزية جداً", "لا فلزية ولا لافلزية", "مترددة"], correct: 2, exp: "الغازات النبيلة خاملة ومستقرة! 😴" },
+                { q: "العنصر اللي أكسيده متردد؟", opts: ["Na", "Cl", "Al", "K"], correct: 2, exp: "Al₂O₃ أكسيد متردد (أمفوتيري)! ⚖️" },
+                { q: "العلاقة بين الحامضية والقاعدية؟", opts: ["طردية", "عكسية", "مفيش علاقة", "متساوية"], correct: 1, exp: "علاقة عكسية! لما الحامضية تزيد، القاعدية تقل! ↔️" },
+                { q: "أقوى الفلزات في أي ركن؟", opts: ["أعلى اليمين", "أسفل اليسار", "أعلى اليسار", "أسفل اليمين"], correct: 1, exp: "أسفل يسار الجدول = أعلى فلزية (Cs, Fr)! 📍" },
+                { q: "ZnO يعتبر أكسيد إيه؟", opts: ["حامضي", "قاعدي", "متردد", "متعادل"], correct: 2, exp: "ZnO أكسيد متردد زي Al₂O₃! ⚖️" },
+                { q: "أي من دول أكسيد متردد؟", opts: ["Na₂O", "Al₂O₃", "CO₂", "SO₃"], correct: 1, exp: "Al₂O₃ أكسيد متردد! ⚖️" },
+                { q: "الفلور ليه مش بيكون أكسيد حامضي؟", opts: ["لأنه فلز", "لأنه أقوى من الأكسجين في السالبية", "لأنه غاز", "لأنه خامل"], correct: 1, exp: "الفلور أعلى سالبية كهربية فالأكسجين هو اللي بيتأكسد! 💡" },
+                { q: "Fe₂O₃ أكسيد إيه؟", opts: ["حامضي", "قاعدي", "متردد", "متعادل"], correct: 1, exp: "Fe₂O₃ أكسيد قاعدي لأن الحديد فلز! 🧼" },
+                { q: "أي ترتيب صحيح للفلزية: Li, Be, B؟", opts: ["Li > Be > B", "B > Be > Li", "Be > Li > B", "كلهم متساويين"], correct: 0, exp: "Li أكتر فلزية (أقصى يسار الدورة)! ⚡" },
+                { q: "SiO₂ أكسيد إيه؟", opts: ["قاعدي", "حامضي", "متردد", "متعادل"], correct: 1, exp: "SiO₂ أكسيد حامضي (الرمل)! 🍋" },
+                { q: "الألومنيوم فلز ولا لافلز؟", opts: ["فلز", "لافلز", "شبه فلز", "غاز نبيل"], correct: 0, exp: "الألومنيوم فلز لكن أكسيده متردد! ⚡" },
+                { q: "أكتر أكسيد قاعدية في الدورة الثالثة؟", opts: ["Al₂O₃", "MgO", "Na₂O", "SiO₂"], correct: 2, exp: "Na₂O أكتر قاعدية لأن Na أكتر فلزية! 🧼" },
+            ]
+        };
+
+        function shuffle(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        const quizState = {};
+
+        function initQuiz(quizId, questions, numQuestions = 5) {
+            const shuffled = shuffle(questions).slice(0, numQuestions);
+            quizState[quizId] = {
+                questions: shuffled,
+                current: 0,
+                score: 0,
+                answered: false
+            };
+            renderQuestion(quizId);
+        }
+
+        function renderQuestion(quizId) {
+            const container = document.getElementById(quizId);
+            const state = quizState[quizId];
+
+            if (state.current >= state.questions.length) {
+                showResults(quizId);
+                return;
+            }
+
+            const q = state.questions[state.current];
+            const progress = ((state.current) / state.questions.length) * 100;
+
+            container.innerHTML = `
+                <div class="slide-in">
+                    <div class="flex justify-between items-center mb-4 text-sm">
+                        <span class="text-gray-400">سؤال ${state.current + 1} من ${state.questions.length}</span>
+                        <span class="text-yellow-400 font-bold">${state.score}/${state.current}</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2 mb-5">
+                        <div class="bg-gradient-to-r from-yellow-400 to-orange-500 h-2 rounded-full transition-all duration-500" style="width: ${progress}%"></div>
+                    </div>
+                    <div class="bg-white/10 rounded-xl p-4 sm:p-5 mb-5">
+                        <p class="text-base sm:text-lg font-bold">${q.q}</p>
+                    </div>
+                    <div class="space-y-2 sm:space-y-3" id="${quizId}-options">
+                        ${q.opts.map((opt, i) => `
+                            <div class="quiz-option bg-white/5 rounded-xl p-3 sm:p-4 border border-white/10 flex items-center gap-3 text-sm sm:text-base" onclick="answer('${quizId}', ${i})">
+                                <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 flex items-center justify-center text-xs sm:text-sm font-bold flex-shrink-0">${['أ', 'ب', 'ج', 'د'][i]}</span>
+                                <span class="flex-1">${opt}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div id="${quizId}-feedback" class="mt-5"></div>
+                </div>
+            `;
+        }
+
+        function answer(quizId, selected) {
+            const state = quizState[quizId];
+            if (state.answered) return;
+            state.answered = true;
+
+            const q = state.questions[state.current];
+            const options = document.querySelectorAll(`#${quizId}-options .quiz-option`);
+            const feedback = document.getElementById(`${quizId}-feedback`);
+
+            options.forEach((opt, i) => {
+                opt.style.pointerEvents = 'none';
+                if (i === q.correct) {
+                    opt.classList.add('correct-glow');
+                    opt.style.background = 'rgba(16, 185, 129, 0.3)';
+                    opt.style.borderColor = '#10b981';
+                } else if (i === selected && selected !== q.correct) {
+                    opt.classList.add('shake');
+                    opt.style.background = 'rgba(239, 68, 68, 0.3)';
+                    opt.style.borderColor = '#ef4444';
+                }
+            });
+
+            const isCorrect = selected === q.correct;
+            if (isCorrect) state.score++;
+
+            feedback.innerHTML = `
+                <div class="${isCorrect ? 'bg-green-500/20 border-green-500/30' : 'bg-red-500/20 border-red-500/30'} rounded-xl p-4 border">
+                    <p class="${isCorrect ? 'text-green-400' : 'text-red-400'} font-bold mb-2 text-sm sm:text-base">
+                        ${isCorrect ? '✅ صح! برافو!' : '❌ غلط! اتعلم من الغلطة!'}
+                    </p>
+                    <p class="text-gray-300 text-xs sm:text-sm">${q.exp}</p>
+                </div>
+            `;
+
+            setTimeout(() => {
+                state.current++;
+                state.answered = false;
+                renderQuestion(quizId);
+            }, 2000);
+        }
+
+        function showResults(quizId) {
+            const container = document.getElementById(quizId);
+            const state = quizState[quizId];
+            const percentage = Math.round((state.score / state.questions.length) * 100);
+            
+            let emoji, message, color;
+            if (percentage >= 80) {
+                emoji = '🎉';
+                message = 'ممتاز يا بطل!';
+                color = 'text-green-400';
+            } else if (percentage >= 60) {
+                emoji = '👍';
+                message = 'كويس! محتاج تراجع شوية';
+                color = 'text-yellow-400';
+            } else {
+                emoji = '💪';
+                message = 'محتاج تراجع الدرس تاني!';
+                color = 'text-red-400';
+            }
+
+            container.innerHTML = `
+                <div class="text-center bounce-in">
+                    <div class="text-5xl sm:text-6xl mb-4">${emoji}</div>
+                    <h4 class="text-xl sm:text-2xl font-bold mb-2 ${color}">${message}</h4>
+                    <p class="text-lg sm:text-xl mb-5">نتيجتك: <span class="text-yellow-400 font-bold">${state.score}/${state.questions.length}</span> (${percentage}%)</p>
+                    <button onclick="resetQuiz('${quizId}')" class="bg-gradient-to-r from-indigo-600 to-purple-600 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold hover:scale-105 transition text-sm sm:text-base">
+                        🔄 حاول تاني
+                    </button>
+                </div>
+            `;
+
+            if (percentage >= 80 && quizId === 'final-quiz') {
+                createConfetti();
+            }
+        }
+
+        function resetQuiz(quizId) {
+            let questions;
+            let numQ = 5;
+            
+            if (quizId === 'metallic-quiz') questions = questionBank.metallic;
+            else if (quizId === 'nonmetallic-quiz') questions = questionBank.nonmetallic;
+            else if (quizId === 'acidic-quiz') questions = questionBank.acidic;
+            else if (quizId === 'basic-quiz') questions = questionBank.basic;
+            else if (quizId === 'final-quiz') {
+                questions = [...questionBank.metallic, ...questionBank.nonmetallic, ...questionBank.acidic, ...questionBank.basic, ...questionBank.general];
+                numQ = 20;
+            }
+            
+            initQuiz(quizId, questions, numQ);
+        }
+
+        function createConfetti() {
+            const colors = ['#fbbf24', '#ec4899', '#8b5cf6', '#10b981', '#3b82f6', '#ef4444'];
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.cssText = `
+                    position: fixed;
+                    width: ${Math.random() * 10 + 5}px;
+                    height: ${Math.random() * 10 + 5}px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    left: ${Math.random() * 100}vw;
+                    top: -20px;
+                    border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+                    pointer-events: none;
+                    z-index: 9999;
+                    animation: confettiFall ${3 + Math.random() * 2}s linear forwards;
+                `;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes confettiFall {
+                to {
+                    transform: translateY(100vh) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz('metallic-quiz', questionBank.metallic, 5);
+            initQuiz('nonmetallic-quiz', questionBank.nonmetallic, 5);
+            initQuiz('acidic-quiz', questionBank.acidic, 5);
+            initQuiz('basic-quiz', questionBank.basic, 5);
+            
+            const allQuestions = [...questionBank.metallic, ...questionBank.nonmetallic, ...questionBank.acidic, ...questionBank.basic, ...questionBank.general];
+            initQuiz('final-quiz', allQuestions, 20);
+        });
+    </script>
+</body>
+</html>
